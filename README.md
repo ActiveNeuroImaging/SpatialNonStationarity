@@ -2,11 +2,11 @@
 
 ![alt text](https://github.com/ActiveNeuroImaging/SpatialNonStationarity/blob/main/Spinning.gif "Spinning")
 
-#INLABRU documentation https://cran.r-project.org/web/packages/inlabru/inlabru.pdf
+# INLABRU documentation https://cran.r-project.org/web/packages/inlabru/inlabru.pdf
 
-#This is heavily adapted from the tutorial at https://inlabru-org.github.io/inlabru/articles/svc.html
+# This is heavily adapted from the tutorial at https://inlabru-org.github.io/inlabru/articles/svc.html
 
-#Below is a simple example of using INLABRU with two brain maps to assess spatially varying coefficient.
+# Below is a simple example of using INLABRU with two brain maps to assess spatially varying coefficient.
 
 library(maps)
 library(ggplot2)
@@ -73,7 +73,7 @@ yourData<-df_no_zeros[sample(nrow(df_no_zeros)),]
 
 
 
-#Create 10 equally size folds
+/ # Create 10 equally size folds
 folds <- cut(seq(1,nrow(yourData)),breaks=10,labels=FALSE)
 
 
