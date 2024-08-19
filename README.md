@@ -1,12 +1,12 @@
-# R Code for paper on the impact of heterogeneous spatial autocorrelation on comparisons of brain maps
+## R Code for paper on the impact of heterogeneous spatial autocorrelation on comparisons of brain maps
 
 ![alt text](https://github.com/ActiveNeuroImaging/SpatialNonStationarity/blob/main/Spinning.gif "Spinning")
 
-INLABRU documentation https://cran.r-project.org/web/packages/inlabru/inlabru.pdf
+#INLABRU documentation https://cran.r-project.org/web/packages/inlabru/inlabru.pdf
 
-This is heavily adapted from the tutorial at https://inlabru-org.github.io/inlabru/articles/svc.html
+#This is heavily adapted from the tutorial at https://inlabru-org.github.io/inlabru/articles/svc.html
 
-Below is a simple example of using INLABRU with two brain maps to assess spatially varying coefficient.
+#Below is a simple example of using INLABRU with two brain maps to assess spatially varying coefficient.
 
 library(maps)
 library(ggplot2)
@@ -22,7 +22,7 @@ library(fmesher)
 library(akima)
 
 
-#inla.setOption("pardiso.license", "~/pardiso.lic") #required for parallel INLA (much faster)
+
 colsc <- function(...) {
   scale_fill_gradientn(
     colours = rev(RColorBrewer::brewer.pal(11, "RdYlBu")),
@@ -60,7 +60,7 @@ df <- cbind(Coords, Sig1,Sig2)
 
 
 
-# Remove rows with any 0 values
+/# Remove rows with any 0 values
 df_no_zeros <- df %>% 
   filter_all(all_vars(. != 0))
   
