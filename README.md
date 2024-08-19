@@ -60,7 +60,7 @@ df <- cbind(Coords, Sig1,Sig2)
 
 
 
-/# Remove rows with any 0 values
+\# Remove rows with any 0 values
 df_no_zeros <- df %>% 
   filter_all(all_vars(. != 0))
   
@@ -73,7 +73,7 @@ yourData<-df_no_zeros[sample(nrow(df_no_zeros)),]
 
 
 
-/ # Create 10 equally size folds
+\# Create 10 equally size folds
 folds <- cut(seq(1,nrow(yourData)),breaks=10,labels=FALSE)
 
 
