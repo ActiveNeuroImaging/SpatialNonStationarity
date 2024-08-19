@@ -7,7 +7,7 @@
 ### This is heavily adapted from the tutorial at https://inlabru-org.github.io/inlabru/articles/svc.html
 
 ### Below is a simple example of using INLABRU with two brain maps to assess spatially varying coefficient.
-
+```
 library(maps)
 library(ggplot2)
 library(sf)
@@ -20,7 +20,7 @@ library(INLA)
 library(inlabru)
 library(fmesher)
 library(akima)
-
+```
 
 
 colsc <- function(...) {
