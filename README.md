@@ -97,7 +97,7 @@ train_fit <- train %>% anti_join(train_mesh,train, by='id')
 
 
 
-# Take a random subset of rows
+\# Take a random subset of rows
 sampled_df <- train_mesh
 
 sampled_df2 <- train_fit
@@ -133,7 +133,7 @@ mydataPred <- sf::st_as_sf(
 print("new") # delete me
 cmp1 <- Sig1 ~  -1 + Svc(geometry, weights = Sig2, model = matern) + field(geometry, model = matern)
 fit1 <- bru(cmp1, mydata, family = "gaussian")
-#print(fit1$dic$dic) # delete me
+
 
 pred1 <- predict(
   fit1, mydataPred,~(field+Svc)
