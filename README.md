@@ -33,7 +33,6 @@ colsc <- function(...) {
 start_time = Sys.time()
 
 
-# This data was 
 
 Coords=read.table('FlatCoords.txt',header = FALSE,sep=" ")/100
 
