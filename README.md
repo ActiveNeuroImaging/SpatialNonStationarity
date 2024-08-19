@@ -9,16 +9,27 @@
 ### Below is a simple example of using INLABRU with two brain maps to assess spatially varying coefficient.
 
 library(maps)
+
 library(ggplot2)
+
 library(sf)
+
 library(terra)
+
 library(tidyterra) # raster plotting
+
 library(tidyr)
+
 library(scales)
+
 library(dplyr)
+
 library(INLA)
+
 library(inlabru)
+
 library(fmesher)
+
 library(akima)
 
 
