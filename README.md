@@ -118,17 +118,20 @@ mydataPred <- sf::st_as_sf(
 )
 ```
 
-Set up the model, in this case a spatially varying coefficient 
+Set up and fit the model, in this case predicting the Principal gradient with a spatially varying coefficient (of the T1/T2 map) and a spatial field instead of a constant intercept
 ```
 cmp1 <- Sig1 ~  -1 + Svc(geometry, weights = Sig2, model = matern) + field(geometry, model = matern)
 fit1 <- bru(cmp1, mydata, family = "gaussian")
 ```
+Evaluate model performance
 ```
-print(fit1$dic$dic)
+print(fit1$dic$dic) # Deviance information criteria for the model fit
 
 pred1 <- predict(
   fit1, mydataPred,~(field+Svc)
 )
+
+print(sqrt(mean((mydataPred$Sig1 - pred1$mean)^2))) # RMSE for out of sample prediction
 
 ```
 
