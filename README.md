@@ -34,7 +34,7 @@ colsc <- function(...) {
 
 
 Prepare the data: in this case the xyz coordinates of each vertex were taken from the fslr 32k map downloaded from https://www.nature.com/articles/s41592-022-01625-w 
-The vertex values were from the first principal gradient (Margulies et al, 2016) and T1/T2 ratio map from the Human Connectome Project (Glasser et al 2013) also downloaded from Markello et al, (2022).
+The vertex values were from the first principal gradient (Margulies et al, 2016) and T1/T2 ratio map from the Human Connectome Project (Glasser et al 2013) also downloaded from Markello et al, (2022) and converted to a text file.
 ```
 Coords=read.table('FlatCoords.txt',header = FALSE,sep=" ")/100
 
