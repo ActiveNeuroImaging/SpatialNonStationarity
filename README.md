@@ -27,6 +27,8 @@ colsc <- function(...) {
     limits = range(..., na.rm = TRUE)
   )
 }
+
+set.seed(23) # using 23 rather than 42 because of https://en.wikipedia.org/wiki/23_enigma
 ```
 
 
@@ -63,24 +65,12 @@ df <- cbind(Coords, Sig1,Sig2)
 df_no_zeros <- df %>% 
   filter_all(all_vars(. != 0))
   
-set.seed(23) # using 23 rather than 42 because of https://en.wikipedia.org/wiki/23_enigma
+
 
 df_no_zeros$id <- 1:nrow(df_no_zeros)
 
 
 yourData<-df_no_zeros[sample(nrow(df_no_zeros)),]
-
-
-
-\# Create 10 equally size folds
-folds <- cut(seq(1,nrow(yourData)),breaks=10,labels=FALSE)
-
-
-
-rmse <- data.frame()
-dic <- data.frame()
-
-
 
  
 testIndexes <- which(folds==1,arr.ind=TRUE)
@@ -111,7 +101,7 @@ boundary=fm_extensions(coords, c(50/100, 100/100))
 mesh <- fm_mesh_2d(boundary = boundary,max.edge = c(10/100, 30/100))
 plot(mesh)
 
-
+```
 sigma0<-sd(Sig1$Sig1)
 size <- min(c(diff(range(mesh$loc[, 1])), diff(range(mesh$loc[, 2]))))
 range0 <- size/5
@@ -119,6 +109,7 @@ kappa0 <- sqrt(8)/range0
 tau0 <- 1/(sqrt(4 * pi) * kappa0 * sigma0)
 matern <- inla.spde2.matern(mesh, B.tau = cbind(log(tau0), -1, +1), B.kappa = cbind(log(kappa0), 
   0, -1), theta.prior.mean = c(0, 0), theta.prior.prec = c(0.1, 1))
+```
 
 mydata <- sf::st_as_sf(
   sampled_df2,
@@ -129,11 +120,14 @@ mydataPred <- sf::st_as_sf(
   sampled_df3,
   coords = c("l1", "l2")
 )
-
+```
+```
 print("new") # delete me
 cmp1 <- Sig1 ~  -1 + Svc(geometry, weights = Sig2, model = matern) + field(geometry, model = matern)
 fit1 <- bru(cmp1, mydata, family = "gaussian")
-
+```
+```
+print(fit1$dic$dic)
 
 pred1 <- predict(
   fit1, mydataPred,~(field+Svc)
