@@ -102,6 +102,8 @@ mesh <- fm_mesh_2d(boundary = boundary,max.edge = c(10/100, 30/100))
 plot(mesh)
 
 ```
+
+```
 sigma0<-sd(Sig1$Sig1)
 size <- min(c(diff(range(mesh$loc[, 1])), diff(range(mesh$loc[, 2]))))
 range0 <- size/5
@@ -110,7 +112,7 @@ tau0 <- 1/(sqrt(4 * pi) * kappa0 * sigma0)
 matern <- inla.spde2.matern(mesh, B.tau = cbind(log(tau0), -1, +1), B.kappa = cbind(log(kappa0), 
   0, -1), theta.prior.mean = c(0, 0), theta.prior.prec = c(0.1, 1))
 ```
-
+```
 mydata <- sf::st_as_sf(
   sampled_df2,
   coords = c("l1", "l2")
