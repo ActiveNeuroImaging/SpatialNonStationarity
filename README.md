@@ -94,6 +94,7 @@ plot(mesh)
 
 ```
 
+Set up the Matern spde (see https://inlabru-org.github.io/inlabru/articles/svc.html)
 ```
 sigma0<-sd(Sig1$Sig1)
 size <- min(c(diff(range(mesh$loc[, 1])), diff(range(mesh$loc[, 2]))))
@@ -103,6 +104,8 @@ tau0 <- 1/(sqrt(4 * pi) * kappa0 * sigma0)
 matern <- inla.spde2.matern(mesh, B.tau = cbind(log(tau0), -1, +1), B.kappa = cbind(log(kappa0), 
   0, -1), theta.prior.mean = c(0, 0), theta.prior.prec = c(0.1, 1))
 ```
+
+Convert the fitting and testing data into spatial dataframes
 ```
 mydata <- sf::st_as_sf(
   sampled_df2,
@@ -114,8 +117,9 @@ mydataPred <- sf::st_as_sf(
   coords = c("l1", "l2")
 )
 ```
+
+Set up the model, in this case a spatially varying coefficient 
 ```
-print("new") # delete me
 cmp1 <- Sig1 ~  -1 + Svc(geometry, weights = Sig2, model = matern) + field(geometry, model = matern)
 fit1 <- bru(cmp1, mydata, family = "gaussian")
 ```
