@@ -102,7 +102,7 @@ sampled_df <- train_mesh
 sampled_df2 <- train_fit
 
 sampled_df3 <- testData
-```
+
 
 coords=cbind(sampled_df$l1,sampled_df$l2)
 
@@ -138,5 +138,7 @@ fit1 <- bru(cmp1, mydata, family = "gaussian")
 pred1 <- predict(
   fit1, mydataPred,~(field+Svc)
 )
+
+```
 
 
