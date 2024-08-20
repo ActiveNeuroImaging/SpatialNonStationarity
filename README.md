@@ -50,6 +50,7 @@ Sig2=read.csv('Myelin.txt',header = FALSE)
 names(Coords)<-list("l1","l2","l3") # just keep xy coordinates because it's a flat map projection of cortical surface
 
 Coords <- subset(Coords, select = -c(l3))
+
 names(Sig1)<-list("Sig1")
 
 names(Sig2)<-list("Sig2")
@@ -57,45 +58,35 @@ names(Sig2)<-list("Sig2")
 df <- cbind(Coords, Sig1,Sig2)
 ```
 
-
-
-
-
+Basic preproceessing of the data (i.e., removing zeros, splitting into folds for cross-validation to assess out-of-sample predictive performance).
 ```
 df_no_zeros <- df %>% 
   filter_all(all_vars(. != 0))
-  
-
 
 df_no_zeros$id <- 1:nrow(df_no_zeros)
 
+Data<-df_no_zeros[sample(nrow(df_no_zeros)),]
 
-yourData<-df_no_zeros[sample(nrow(df_no_zeros)),]
-
+folds <- cut(seq(1,nrow(Data)),breaks=10,labels=FALSE) # 10 folds, although in this example we will only test one iteration testing on fold 1 and training on the remaining data. 
  
 testIndexes <- which(folds==1,arr.ind=TRUE)
-testData <- yourData[testIndexes, ]
-trainData <- yourData[-testIndexes, ]
+testData <- Data[testIndexes, ]
+trainData <- Data[-testIndexes, ]
 	
+train <- trainData %>% dplyr::sample_frac(1) # proportion of the data to be selected at random for training (here we use all of it, but can reduce to reduce computational burden)
+train_mesh <- train %>% dplyr::sample_frac(0.08) # proportion of the data to be used to make the mesh (here we only use a small proportion of the data to reduce memory usage).
+train_fit <- train %>% anti_join(train_mesh,train, by='id') # use the data not used to create the mesh for training.
 
-
-
-train <- trainData %>% dplyr::sample_frac(1) 
-train_mesh <- train %>% dplyr::sample_frac(0.08) 
-train_fit <- train %>% anti_join(train_mesh,train, by='id')
-
-
-
-\# Take a random subset of rows
 sampled_df <- train_mesh
-
 sampled_df2 <- train_fit
-
 sampled_df3 <- testData
 
 
 coords=cbind(sampled_df$l1,sampled_df$l2)
+```
 
+Make a mesh to use for fitting the model (see https://github.com/inlabru-org/fmesher)
+```
 boundary=fm_extensions(coords, c(50/100, 100/100))
 
 mesh <- fm_mesh_2d(boundary = boundary,max.edge = c(10/100, 30/100))
