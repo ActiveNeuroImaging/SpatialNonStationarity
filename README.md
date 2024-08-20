@@ -58,11 +58,12 @@ df <- cbind(Coords, Sig1,Sig2)
 
 
 
-\# Remove rows with any 0 values
+
+```
 df_no_zeros <- df %>% 
   filter_all(all_vars(. != 0))
   
-set.seed(23)
+set.seed(23) # using 23 rather than 42 because of https://en.wikipedia.org/wiki/23_enigma
 
 df_no_zeros$id <- 1:nrow(df_no_zeros)
 
@@ -101,6 +102,7 @@ sampled_df <- train_mesh
 sampled_df2 <- train_fit
 
 sampled_df3 <- testData
+```
 
 coords=cbind(sampled_df$l1,sampled_df$l2)
 
