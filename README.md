@@ -33,18 +33,19 @@ colsc <- function(...) {
 
 
 
-Prepare the data: in this case the xyz coordinates were downloaded from the fslr map from https://www.nature.com/articles/s41592-022-01625-w 
-
+Prepare the data: in this case the xyz coordinates of each vertex were taken from the fslr 32k map downloaded from https://www.nature.com/articles/s41592-022-01625-w 
+The vertex values were from the first principal gradient (Margulies et al, 2016) and T1/T2 ratio map from the Human Connectome Project (Glasser et al 2013) also downloaded from Markello et al, (2022).
 ```
 Coords=read.table('FlatCoords.txt',header = FALSE,sep=" ")/100
 
-Sig1=read.csv('FlatFCGradient_0.txt',header = FALSE) 
+
+Sig1=read.csv('FC_0.txt',header = FALSE) 
+
 
 Sig2=read.csv('Myelin.txt',header = FALSE)
 
 
-names(Coords)<-list("l1","l2","l3")
-
+names(Coords)<-list("l1","l2","l3") # just keep xy coordinates because it's a flat map projection of cortical surface
 
 Coords <- subset(Coords, select = -c(l3))
 names(Sig1)<-list("Sig1")
