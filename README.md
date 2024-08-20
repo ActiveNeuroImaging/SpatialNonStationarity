@@ -20,8 +20,6 @@ library(INLA)
 library(inlabru)
 library(fmesher)
 library(akima)
-```
-
 
 colsc <- function(...) {
   scale_fill_gradientn(
@@ -29,13 +27,16 @@ colsc <- function(...) {
     limits = range(..., na.rm = TRUE)
   )
 }
-
-start_time = Sys.time()
-
+```
 
 
+
+
+
+Prepare the data: in this case the xyz coordinates were downloaded from the fslr map from https://www.nature.com/articles/s41592-022-01625-w 
+
+```
 Coords=read.table('FlatCoords.txt',header = FALSE,sep=" ")/100
-
 
 Sig1=read.csv('FlatFCGradient_0.txt',header = FALSE) 
 
@@ -50,12 +51,8 @@ names(Sig1)<-list("Sig1")
 
 names(Sig2)<-list("Sig2")
 
-
-
-
-
 df <- cbind(Coords, Sig1,Sig2)
-
+```
 
 
 
@@ -139,7 +136,4 @@ pred1 <- predict(
   fit1, mydataPred,~(field+Svc)
 )
 
-end_time = Sys.time()
-
-end_time - start_time
 
