@@ -6,6 +6,8 @@
 
 ### This is heavily adapted from the tutorial at https://inlabru-org.github.io/inlabru/articles/svc.html
 
+### There are also some new examples using the cortical surface rather than a flat projection and some extra examples of different uses of INLA: INLA_MapCorrelationWithNonstat.r INLA_MapInteraction.r INLA_SVCExample.r INLA_SingleMapExample.r
+
 ### Below is a simple example of using INLABRU with two brain maps to assess spatially varying coefficient.
 ```
 library(maps)
